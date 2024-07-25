@@ -17,8 +17,8 @@ Então você deve Exibir o nome de todos os clientes cujo estado seja ‘RS’.<
 
 ## Esquema
 
-|  customer     |
-| ------------- | 
+###  customer    
+
 
 <table>
   <thead>
@@ -60,103 +60,81 @@ Então você deve Exibir o nome de todos os clientes cujo estado seja ‘RS’.<
   </tbody>
   <tfoot></tfoot>
 </table>
-Você deverá implementar as seguintes consultas (ambas deverão estar corretas):<br><br>
 
-## Relatório de vendas
 
-1. [IN] O usuário informa, opcionalmente, data inicial, data final e um trecho do nome do vendedor.
-2. [OUT] O sistema informa uma listagem paginada contendo id, data, quantia vendida e nome do
-vendedor, das vendas que se enquadrem nos dados informados.<br><br>
-Informações complementares:<br>
-- Se a data final não for informada, considerar a data atual do sistema. Para instanciar a data atual,
-utilize o comando:
-LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
-- Se a data inicial não for informada, considerar a data de 1 ano antes da data final. Para instanciar
-uma data com um ano a menos, use a função minusYears:<br>
-LocalDate result = minhaData.minusYears(1L);
-- Se o nome não for informado, considerar o texto vazio.
-- Dica: receba todos os dados como String no controller, e faça os tratamentos das datas acima,
-instanciando os objetos LocalDate, no service.
+## Tabelas
 
-## Sumário de vendas por vendedor
-1. [IN] O usuário informa, opcionalmente, data inicial, data final.<br>
-2. [OUT] O sistema informa uma listagem contendo nome do vendedor e soma de vendas deste vendedor
-no período informado.<br><br>
-Informações complementares:<br>
-- As mesmas do caso de uso Relatório de vendas
+### customers
+| id |             name           |            street         |      city      | 	state | credit_limit  |
+| -- | -------------------------- | ------------------------- | -------------- | ------ | ------------- |
+| 1  |    Pedro Augusto da Rocha  | Rua Pedro Carlos Hoffman  | Porto Alegre   |   RS   |     700,00    |
+| 2  |      Antonio Carlos Mamel  | 	   Av. Pinheiros        | Belo Horizonte |   MG   |    3500,50    |
+| 3  |        Luiza Augusta Mhor  |     Rua Salto Grande      | Niteroi        |   RJ   |    4000,00    |
+| 4  |          Jane Ester        |     Av 7 de setembro      | Erechim        |   RS   |     800,00    |
+| 5  | Marcos Antônio dos Santos  |     Av Farrapos           | Porto Alegre   |   RS   |    4250,25    |
 
-## Como o trabalho será corrigido?
-1) Importação do projeto<br>
-O professor deverá ser capaz de fazer um simples clone do projeto Github, e importar e executar o mesmo na
-IDE sem necessidade de qualquer configuração especial diferente daquelas das aulas.<br><br>
-2) Testes manuais no Postman<br>
-O professor já terá preparado em seu computador as seguintes requisições (link da collection Postman
-abaixo). Todas elas deverão funcionar corretamente:<br><br>
-https://www.getpostman.com/collections/dea7904f994cb87c3d12<br><br>
-2.1) Sumário de vendas por vendedor (teste 1)<br>
-<b>GET /sales/summary?minDate=2022-01-01&maxDate=2022-06-30<br>
-<p align = "center">
-Deverá retornar o sumário de vendas por vendedor no período informado:</b>
-</p>
+
+##  Exemplo de Saída  
+
+| name                      |
+| ------------------------- |
+| Pedro Augusto da Rocha    |
+| Jane Ester                | 
+| Marcos Antônio dos Santos | 
+
+## Principais Tecnologias
+
+- <img width="50px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original-wordmark.svg" title = "Java" /> Java 21 : Utilizaremos a versão LTS mais recente do Java para tirar vantagem das últimas inovações que essa linguagem robusta e amplamente utilizada oferece;
+- <img width="50px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original-wordmark.svg" title = "Spring boot"/> Spring Boot 3 : Trabalharemos com a mais nova versão do Spring Boot, que maximiza a produtividade do desenvolvedor por meio de sua poderosa premissa de autoconfiguração;
+- <img width="50px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original-wordmark.svg" title = "Spring Data JPA"/>  Spring Data JPA: Exploraremos como essa ferramenta pode simplificar nossa camada de acesso aos dados, facilitando a integração com bancos de dados SQL;
+- <img width="50px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original-wordmark.svg" title = "PostgreSQL"/> PostgreSQL: Banco de dados SQL .
+
+### Código SQL do URI/BEE 2602
 
 ```
-[
-  {
-    "sellerName": "Anakin",
-    "total": 110571.0
-  },
-  {
-    "sellerName": "Logan",
-    "total": 83587.0
-  },
-  {
-    "sellerName": "Loki Odinson",
-    "total": 150597.0
-  },
-  {
-    "sellerName": "Padme",
-    "total": 135902.0
-  },
-  {
-    "sellerName": "Thor Odinson",
-    "total": 144896.0
-  }
-]
-```
-2.2) Sumário de vendas por vendedor (teste 2)<br>
-<b>GET /sales/summary<br><br>
-Deverá retornar o sumário de vendas por vendedor dos últimos 12 meses.</b><br><br>
-2.3) Relatório de vendas (teste 1)<br>
-<b>GET /sales/report<br><br>
-Deverá retornar o relatório de vendas dos últimos 12 meses.</b><br><br>
-2.4) Relatório de vendas (teste 2)<br>
-<b>GET /sales/report?minDate=2022-05-01&maxDate=2022-05-31&name=odinson<br><br>
-<p align ="center">
-Deverá retornar o relatório de vendas do período/vendedor informados:</b>
-</p>
+--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2602
 
-```
-{
-  "content": [
-    {
-        "id": 9,
-        "date": "2022-05-22",
-        "amount": 19476.0,
-        "sellerName": "Loki Odinson"
-    },
-    {
-        "id": 10,
-        "date": "2022-05-18",  
-        "amount": 20530.0,
-        "sellerName": "Thor Odinson"
-    },
-    {
-        "id": 12,
-        "date": "2022-05-06",
-        "amount": 21753.0,
-        "sellerName": "Loki Odinson"
-    }
-],
-...
+CREATE TABLE customers (
+  id NUMERIC PRIMARY KEY,
+  name CHARACTER VARYING (255),
+  street CHARACTER VARYING (255),
+  city CHARACTER VARYING (255),
+  state CHAR (2),
+  credit_limit NUMERIC
+);
+
+INSERT INTO customers (id, name, street, city, state, credit_limit)
+VALUES 
+  (1,	'Pedro Augusto da Rocha',	'Rua Pedro Carlos Hoffman',	'Porto Alegre',	'RS',	700.00),
+  (2,	'Antonio Carlos Mamel',	'Av. Pinheiros', 'Belo Horizonte',	'MG',	3500.50),
+  (3,	'Luiza Augusta Mhor',	'Rua Salto Grande',	'Niteroi',	'RJ',	4000.00),	
+  (4,	'Jane Ester',	'Av 7 de setembro',	'Erechim',	'RS',	800.00),
+  (5, 'Marcos Antônio dos Santos',	'Av Farrapos',	'Porto Alegre',	'RS',	4250.25);
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE customers; --
 ```
 
+## Resolução do exercício em SQL no URI/BEE 2602
+
+```
+SELECT name FROM customers WHERE state = 'RS';
+```
+
+## Código do SQL no Java
+
+```
+@Query(nativeQuery = true,value = "SELECT name FROM customers WHERE UPPER(state) = UPPER(:state)")
+    List<CustomerMinProjection> search1(String state);
+```
+
+## Código do JPQL no Java
+
+```
+@Query("SELECT new com.devsuperior.uri2602.dto.CustomerMinDTO(obj.name)  FROM Customer obj WHERE UPPER(obj.state) = UPPER(:state)")
+    List<CustomerMinDTO> search2(String state);
+```

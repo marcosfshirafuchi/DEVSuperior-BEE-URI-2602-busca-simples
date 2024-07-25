@@ -3,7 +3,8 @@
 #### Desenvolvido na linguagem Java por:
 - [Marcos Shirafuchi](https://github.com/marcosfshirafuchi)
 ## Formação Desenvolvedor Moderno Módulo: Back end
-<b>Capítulo: JPA, consultas SQL e JPQL</b>
+<b>Capítulo: JPA, consultas SQL e JPQL</b><br><br>
+<b>Aula: URI 2602 - Elaborando a consulta</b>
 
 ## Exercício: BEE/URI 2602
 
